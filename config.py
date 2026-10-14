@@ -1,9 +1,13 @@
-param = {
-    'n_estimators' : [100]
+RandomForestParam = {
+    'name_model' : ['RandomForest']
+    , 'n_estimators' : [100]
     , 'max_depth' : [x for x in range(5, 11, 1)]
     , 'min_samples_leaf' : [x for x in range(1, 4, 1)]
 }
-
+LogRegParam = {
+    'name_model' : ['LogReg']
+    , 'cunter' : [1, 2]
+}
 path = {
       'train_path'              : r'C:\Users\Vsani\ML\Titanic\data\train.csv'
     , 'test_path'               : r'C:\Users\Vsani\ML\Titanic\data\test.csv'
