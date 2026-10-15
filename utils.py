@@ -3,6 +3,7 @@ import pandas as pd
 
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 from sklearn.model_selection import ParameterGrid
+from sklearn.base import clone
 
 import config as cnf 
 
@@ -55,3 +56,16 @@ def parametrs(params):
             param[key] = [value]
 
     return list(ParameterGrid(param))
+
+# Цикл для кросс валидации
+def skf_function(model, X, y, skf, scaler):
+    array_train_accuracy = []
+    array_test_accuracy = []
+    
+    for i, (train_index, test_index) in enumerate(skf.split(X, y)):
+        model_clone = clone(model)
+        train_accuracy, test_accuracy = fit_model(model_clone, X, y, train_index, test_index, scaler=scaler)
+        array_train_accuracy.append(train_accuracy)
+        array_test_accuracy.append(test_accuracy)
+        
+    return mean_accuracy(array_train_accuracy, array_test_accuracy)
