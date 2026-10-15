@@ -6,6 +6,7 @@ from sklearn.model_selection import ParameterGrid
 
 import config as cnf 
 
+# Подготовка данных
 def predobr(df_train, df_test, df_gender_submission):
     df_train_priz = df_train[['Survived', 'Pclass', 'Sex', 'Age', 'SibSp', 'Parch', 'Fare', 'Embarked']].copy()
     df_train_priz['Age'] = df_train_priz['Age'].fillna(df_train_priz['Age'].median())
@@ -16,8 +17,8 @@ def predobr(df_train, df_test, df_gender_submission):
     y = df_train_priz['Survived']
     return X, y
 
-
-def Split(model, X, y, train_index, test_index, scaler=False):
+# Обучение модели
+def fit_model(model, X, y, train_index, test_index, scaler=False):
     current_X_train = X.iloc[train_index]
     current_y_train = y.iloc[train_index]
     current_X_test  = X.iloc[test_index]
@@ -33,12 +34,9 @@ def Split(model, X, y, train_index, test_index, scaler=False):
     train_accuracy = model.score(current_X_train, current_y_train, sample_weight=None)
     test_accuracy = model.score(current_X_test, current_y_test, sample_weight=None)
     
-    array_train_accuracy.append(train_accuracy)
-    array_test_accuracy.append(test_accuracy)
-    
-    return array_train_accuracy, array_test_accuracy
+    return train_accuracy, test_accuracy
 
-
+# Получение средней accuracy и стандартного отклонения
 def mean_accuracy(array_train_accuracy, array_test_accuracy):
         mean_train_accuracy = float(np.mean(array_train_accuracy))
         mean_train_std = np.std(array_train_accuracy)
@@ -49,10 +47,11 @@ def mean_accuracy(array_train_accuracy, array_test_accuracy):
         
         return mean_train_accuracy, mean_train_std, mean_test_accuracy, mean_test_std
     
-    
+# Перебор параметров 
 def parametrs(params):
-    for key, value in params.items():   
+    param = params.copy()
+    for key, value in param.items():   
         if type(value) != list:
-            params[key] = [value]
+            param[key] = [value]
 
-    return list(ParameterGrid(params))
+    return list(ParameterGrid(param))

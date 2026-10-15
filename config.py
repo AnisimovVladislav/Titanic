@@ -4,9 +4,16 @@ RandomForestParam = {
     , 'max_depth' : [x for x in range(8, 11, 1)]
     , 'min_samples_leaf' : [x for x in range(1, 4, 1)]
 }
+
 LogRegParam = {
     'name_model' : 'LogReg'
 }
+
+KNNParam = {
+    'name_model' : 'KNN'
+    , 'n_neighbors' : [x for x in range(1, 11, 1)]
+}
+
 path = {
       'train_path'              : r'C:\Users\Vsani\ML\Titanic\data\train.csv'
     , 'test_path'               : r'C:\Users\Vsani\ML\Titanic\data\test.csv'
