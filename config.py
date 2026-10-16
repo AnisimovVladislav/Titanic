@@ -1,7 +1,13 @@
+import xgboost, lightgbm, catboost
+
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
+
+from xgboost import XGBClassifier
+from lightgbm import LGBMClassifier
+from catboost import CatBoostClassifier
 
 random_state = 42
 
@@ -10,6 +16,7 @@ models = {
     , 'DecisionTree': DecisionTreeClassifier
     , 'LogReg': LogisticRegression
     , 'KNN': KNeighborsClassifier
+    , 'CatBoost' : CatBoostClassifier
 }
 
 RandomForestParam = {
@@ -41,6 +48,11 @@ KNNParam = {
     , 'scaler' : True
 }
 
+CatBoostParam = {
+    'name_model' : 'CatBoost'
+    , 'scaler' : False
+    , 'random_state' : random_state
+}
 
 path = {
       'train_path'              : r'C:\Users\Vsani\ML\Titanic\data\train.csv'
