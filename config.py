@@ -52,6 +52,8 @@ CatBoostParam = {
     'name_model' : 'CatBoost'
     , 'scaler' : False
     , 'random_state' : random_state
+    , 'iterations' : [10, 20]
+    , 'depth' : [5, 10]
 }
 
 path = {
