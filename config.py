@@ -9,8 +9,10 @@ from catboost import CatBoostClassifier
 from lightgbm import LGBMClassifier
 from xgboost import XGBClassifier
 
+import DeepLearning as DL
+
 random_state = 42
-exp_name = 'Поменял пасаажиров'
+exp_name = 'Первый запуск полного пайплайна'
 
 models = {
     'RandomForest': RandomForestClassifier
@@ -20,6 +22,7 @@ models = {
     , 'CatBoost' : CatBoostClassifier
     , 'LGBM' : LGBMClassifier
     , 'XGBoost' : XGBClassifier
+    , 'nn_model' : DL.nn_model
 }
 
 rename_params = {
@@ -107,7 +110,20 @@ XGBoostParam = {
     , 'subsample' : 0.8
 }
 
-
+DLParam = {
+    'name_model' : 'nn_model'
+    , 'random_state' : random_state
+    , 'use_scaler' : True
+    , 'use_category' : False
+    , 'EPOCHS' : 200
+    , 'lr' : 1e-3
+    , 'weight_decay' : [1e-1, 1e-3]
+    , 'mode' : 'min'
+    , 'factor' : [0.5, 0.1]
+    , 'patience' : 5
+    , 'threshold' : 1e-2
+    , 'min_lr' : 1e-5
+}
 
 path = {
       'train_path'              : r'C:\Users\Vsani\ML\Titanic\data\train.csv'
