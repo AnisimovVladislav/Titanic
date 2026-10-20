@@ -1,5 +1,3 @@
-import xgboost, lightgbm, catboost
-
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
@@ -9,10 +7,14 @@ from catboost import CatBoostClassifier
 from lightgbm import LGBMClassifier
 from xgboost import XGBClassifier
 
+from pathlib import Path
+
 import DeepLearning as DL
 
 random_state = 42
-exp_name = 'Первый запуск полного пайплайна'
+exp_name = 'Тест baseline'
+mode = 'inference' ## Выбрать validation / inference
+n_splits = 5
 
 models = {
     'RandomForest': RandomForestClassifier
@@ -115,19 +117,20 @@ DLParam = {
     , 'random_state' : random_state
     , 'use_scaler' : True
     , 'use_category' : False
-    , 'EPOCHS' : 200
+    , 'EPOCHS' : 100
     , 'lr' : 1e-3
-    , 'weight_decay' : [1e-1, 1e-3]
+    , 'weight_decay' : [1e-1]
     , 'mode' : 'min'
-    , 'factor' : [0.5, 0.1]
+    , 'factor' : [0.5]
     , 'patience' : 5
     , 'threshold' : 1e-2
-    , 'min_lr' : 1e-5
+    , 'min_lr' : 1e-7
+    , 'batch_size' : 64
 }
 
+BASE = Path(__file__).parent
 path = {
-      'train_path'              : r'C:\Users\Vsani\ML\Titanic\data\train.csv'
-    , 'test_path'               : r'C:\Users\Vsani\ML\Titanic\data\test.csv'
-    , 'gender_submission_path'  : r'C:\Users\Vsani\ML\Titanic\data\gender_submission.csv'
-    , 'file_path'               : r'C:\Users\Vsani\ML\Titanic\results'
+    'train_path': BASE / 'data' / 'train.csv',
+    'test_path':  BASE / 'data' / 'test.csv',
+    'file_path':  BASE / 'results',
 }

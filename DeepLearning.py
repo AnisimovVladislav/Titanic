@@ -1,7 +1,4 @@
-import torch
 import torch.nn as nn
-import torch.optim as optim
-from torch.utils.data import Dataset, DataLoader, TensorDataset
 
 def nn_model(n_features):
     return nn.Sequential(
@@ -17,4 +14,7 @@ def nn_model(n_features):
         
         nn.Linear(128, 2),
     )
+    
+    
+
     
